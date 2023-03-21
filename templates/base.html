@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
+    <style>
+      html,
+      body {
+        height: 100%;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      header {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border-bottom: 3px solid #cd7917;
+        background-color: #2a2d7c;
+      }
+      .main-container {
+        height: 100%;
+      }
+
+      .main-row {
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        gap: 8px;
+        height: 100%;
+      }
+
+      .search-form {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px;
+      }
+
+      footer {
+        background-color: #f5f5f5;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-size: small;
+      }
+
+      .btn-primary {
+        background-color: #2a2d7c;
+        border-radius: 6px;
+        border: 2px solid #2a2d7c;
+      }
+
+      .form-control {
+        border-radius: 6px;
+        border: 2px solid #c1c1c1;
+      }
+
+      .col-roll {
+        font-size: 28px;
+      }
+
+      .header-row {
+        display: grid;
+        grid-template-rows: auto auto;
+        align-items: center;
+        justify-content: center;
+        color: #f5f5f5;
+        font-weight: 600;
+      }
+      table {
+        margin-top: 10px;
+      }
+      .pagination a {
+        background-color: #2a2d7c;
+        padding: 8px;
+        text-decoration: none;
+        color: aliceblue;
+        font-size: small;
+        border-radius: 6px;
+      }
+      .alert {
+        padding: 2px 10px;
+        margin: 0px;
+        border-radius: 8px;
+      }
+      .register_form {
+        display: grid;
+        grid-template-rows: auto auto auto auto auto;
+        gap: 6px;
+      }
+
+      .notification {
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 6px;
+      }
+
+      .register-col {
+        border: 1px solid #c1c1c1;
+        padding: 18px;
+        border-radius: 6px;
+      }
+
+      .btn-register {
+        margin-top: 10px;
+      }
+
+      .navigation {
+        display: flex;
+        text-transform: uppercase;
+        justify-content: center;
+        justify-items: center;
+        align-items: center;
+        font-size: small;
+        gap: 10px;
+      }
+      .navigation a {
+        text-decoration: none;
+        font-weight: 600;
+        color: cadetblue;
+      }
+      .navigation a:hover {
+        color: #2a2d7c;
+      }
+    </style>
+    <title>KUSU Verification</title>
+  </head>
+  <body>
+    <div class="container-fluid main-container">
+      <div class="row main-row">
+        <header>
+          <div class="container">
+            <div class="row header-row">
+              <div class="text-center">
+                <a href="{% url 'index' %}"
+                  ><img src="{% static 'media/logo.png' %}" height="70"
+                /></a>
+              </div>
+              <div class="col-roll align-bottom">SU VOTERS' ROLL</div>
+            </div>
+          </div>
+        </header>
+        <div class="content">
+          <div class="container">
+            <div class="row">{% block content %} {% endblock content %}</div>
+          </div>
+        </div>
+        <footer>
+          <div class="container">
+            <div class="row">
+              <div
+                class="col-lg-6 col-md-12 col-sm-12 text-sm-center text-md-center text-lg-start"
+              >
+                About KUHeS
+              </div>
+              <div
+                class="col-lg-6 col-md-12 col-sm-12 text-sm-center text-md-center text-lg-end"
+              >
+                Copyright All Rights Reserved © KUHeS, 2023
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

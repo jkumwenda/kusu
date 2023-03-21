@@ -1,0 +1,90 @@
+{% extends "base.html" %} {% block content %}
+<div class="col-lg-6 col-md-8 col-sm-12 offset-md-2 offset-lg-3">
+  <div class="navigation">
+    <a href="{% url 'index' %}">Home</a>
+    <!-- |<a href="#">Vote Here</a> -->
+  </div>
+  <form method="post" class="search-form">
+    {% csrf_token %} {{ search_form }}
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+</div>
+<div class="col-lg-8 col-md-10 col-sm-12 offset-lg-2 offset-md-1">
+  {% if data_found %}
+  <div class="alert alert-warning notification">
+    <strong>To check your eligibility to vote:</strong>
+    <p>
+      Use the search box above to look up your voter registration status. Type
+      in your first name, last name, or email in search field, then click the
+      Search button. If your information is located, check to see if your status
+      is <strong>active</strong>, which indicates that you have been validated
+      to vote. If your information is not found, you can add your details in the
+      register form that appears.
+    </p>
+    If you require technical assistance, please contact Joel Kumwenda at +265
+    999 371 088.
+  </div>
+  <table class="table table-bordered table-striped table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col" width="100">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for voter in page_obj %}
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ voter.fullname|upper }}</td>
+        <td>{{ voter.email|lower }}</td>
+        <td>
+          {% if voter.status %}
+          <div class="alert alert-success text-center text-sm">Active</div>
+          {% else %}
+          <div class="alert alert-warning text-center">Pending</div>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="pagination">
+    <span class="step-links">
+      {% if page_obj.has_previous %}
+      <a href="?page=1">&laquo; First</a>
+      <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+
+      <span class="current">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">Next</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
+  {% else %}
+  <div class="col-lg-10 col-md-12 col-sm-12 offset-lg-1 register-col">
+    <div class="alert alert-warning notification">
+      It appears that your information is not listed on the voters roll. To
+      participate in the upcoming election, we kindly request that you register
+      using the form provided below. Once you have submitted your details, the
+      committee will proceed to verify your information with HR and subsequently
+      update the roll. If you do not have <strong>KUHeS Email</strong> contact
+      <strong>Joel</strong> on <strong>+265 999 371 088</strong>. Thank you for
+      your cooperation.
+    </div>
+    <form action="register" method="post" class="col-10 offset-1 register_form">
+      {% csrf_token %} {{ register_form }}
+      <button type="submit" class="btn btn-primary btn-register">
+        Register
+      </button>
+    </form>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
